@@ -1,0 +1,16 @@
+{
+  "name": "payloadlab-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "fast-xml-parser": "^5.5.6",
+    "openai": "^4.104.0"
+  }
+}
