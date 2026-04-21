@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PayloadLab</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="shortcut icon" href="assets/favicon.ico">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button id="menuToggle" class="icon-btn" aria-label="Abrir menú">☰</button>
+
+      <button id="brandHomeBtn" class="brand-home-btn" aria-label="Ir a inicio">
+        <img src="assets/logo-icon.png" alt="PayloadLab" class="logo-icon">
+        <span class="brand-home-text">PayloadLab</span>
+      </button>
+
+      <div class="topbar-spacer"></div>
+    </header>
+
+    <div id="sidebarOverlay" class="sidebar-overlay hidden"></div>
+
+    <aside id="sidebar" class="sidebar collapsed">
+      <div class="sidebar-header">
+        <button id="closeSidebarBtn" class="icon-btn sidebar-close-btn" aria-label="Cerrar menú">✕</button>
+      </div>
+
+      <div class="sidebar-brand">
+        <button id="sidebarBrandBtn" class="sidebar-brand-btn" aria-label="Ir a inicio">
+          <img src="assets/logo-icon.png" alt="PayloadLab" class="logo-icon">
+          <div>
+            <h1>PayloadLab</h1>
+            <p class="subtitle">Toolkit para integradores</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="sidebar-nav">
+        <button class="tool-btn active" data-tool="home">
+          <span class="tool-btn-icon icon-home">⌂</span>
+          <span>Inicio</span>
+        </button>
+
+        <button class="tool-btn" data-tool="xmlTools">
+          <span class="tool-btn-icon icon-xml">&lt;/&gt;</span>
+          <span>XML Tools</span>
+        </button>
+
+        <button class="tool-btn" data-tool="jsonTools">
+          <span class="tool-btn-icon icon-json">{ }</span>
+          <span>JSON Tools</span>
+        </button>
+
+        <button class="tool-btn" data-tool="convertersTools">
+          <span class="tool-btn-icon icon-convert">⇄</span>
+          <span>Convertidores</span>
+        </button>
+
+        <button class="tool-btn" data-tool="snippetsTools">
+          <span class="tool-btn-icon icon-snippet">[]</span>
+          <span>Snippets</span>
+        </button>
+
+        <button class="tool-btn" data-tool="textCounter">
+          <span class="tool-btn-icon icon-text">#</span>
+          <span>Contador de texto</span>
+        </button>
+
+        <button class="tool-btn" data-tool="textDiff">
+          <span class="tool-btn-icon icon-diff">≠</span>
+          <span>Comparador de textos</span>
+        </button>
+
+        <button class="tool-btn" data-tool="base64Tools">
+          <span class="tool-btn-icon icon-base64">64</span>
+          <span>Base64</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <!-- HOME -->
+      <section id="home" class="tool-section active">
+        <div class="hero hero-minimal">
+          <div class="hero-copy">
+            <div class="hero-badge">Toolkit para integradores</div>
+
+            <h2 class="hero-title">Convierte, valida y compara payloads más rápido</h2>
+
+            <p class="hero-text">
+              PayloadLab reúne XML, JSON, CSV, Base64, comparación de texto y snippets
+              en una sola interfaz clara, rápida y lista para el trabajo diario.
+            </p>
+          </div>
+        </div>
+
+        <div class="home-search-card">
+          <label for="homeToolSearch">Buscar herramienta</label>
+          <input id="homeToolSearch" type="text" placeholder="Ej. XML, comparar, Base64, snippets..." />
+        </div>
+
+        <div class="home-tabs">
+          <button class="home-tab active" data-filter="all">Todos</button>
+          <button class="home-tab" data-filter="transformar">Transformar</button>
+          <button class="home-tab" data-filter="validar">Validar</button>
+          <button class="home-tab" data-filter="texto">Texto</button>
+          <button class="home-tab" data-filter="utilidades">Utilidades</button>
+        </div>
+
+        <div class="home-section">
+          <div class="section-header">
+            <h3>Herramientas</h3>
+            <p>Acceso directo a las funciones principales.</p>
+          </div>
+
+          <div class="tools-grid" id="toolsGrid">
+            <div class="tool-card" data-go="xmlTools" data-category="transformar validar">
+              <div class="tool-card-top">
+                <div class="tool-icon-card xml-icon-card">&lt;/&gt;</div>
+                <div>
+                  <h3>XML Tools</h3>
+                  <p>Valida, formatea y transforma XML rápidamente.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="xmlTools">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="jsonTools" data-category="validar transformar">
+              <div class="tool-card-top">
+                <div class="tool-icon-card json-icon-card">{ }</div>
+                <div>
+                  <h3>JSON Tools</h3>
+                  <p>Valida y formatea JSON con salida limpia.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="jsonTools">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="convertersTools" data-category="transformar">
+              <div class="tool-card-top">
+                <div class="tool-icon-card convert-icon-card">⇄</div>
+                <div>
+                  <h3>Convertidores</h3>
+                  <p>Convierte entre JSON, XML y CSV en múltiples direcciones.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="convertersTools">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="textDiff" data-category="texto">
+              <div class="tool-card-top">
+                <div class="tool-icon-card diff-icon-card">≠</div>
+                <div>
+                  <h3>Comparador</h3>
+                  <p>Encuentra diferencias entre dos textos línea por línea.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="textDiff">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="textCounter" data-category="texto utilidades">
+              <div class="tool-card-top">
+                <div class="tool-icon-card text-icon-card">#</div>
+                <div>
+                  <h3>Contador</h3>
+                  <p>Cuenta caracteres, palabras y líneas de forma inmediata.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="textCounter">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="base64Tools" data-category="utilidades transformar">
+              <div class="tool-card-top">
+                <div class="tool-icon-card base64-icon-card">64</div>
+                <div>
+                  <h3>Base64</h3>
+                  <p>Codifica y decodifica cadenas de texto Base64.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="base64Tools">Ir a herramienta</button>
+              </div>
+            </div>
+
+            <div class="tool-card" data-go="snippetsTools" data-category="utilidades">
+              <div class="tool-card-top">
+                <div class="tool-icon-card snippet-icon-card">[]</div>
+                <div>
+                  <h3>Snippets</h3>
+                  <p>Guarda y reutiliza fragmentos de payloads o texto.</p>
+                </div>
+              </div>
+              <div class="tool-card-footer">
+                <button class="tool-card-btn" data-go="snippetsTools">Ir a herramienta</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- XML TOOLS -->
+      <section id="xmlTools" class="tool-section">
+        <h2>XML Tools</h2>
+
+        <div class="tool-tip tip-xml" id="toolTipXml">
+          <span class="tool-tip-icon">&lt;/&gt;</span>
+          <p id="inlineToolTipXml"></p>
+        </div>
+
+        <div class="ai-toolbar">
+          <div class="ai-toolbar-copy">
+            <span class="ai-badge">IA</span>
+            <span>Analiza este XML con ayuda de IA</span>
+          </div>
+          <button id="btnToggleXmlAiModal" class="ai-toolbar-btn">Analizar XML</button>
+        </div>
+
+        <div id="xmlAiModal" class="ai-modal hidden">
+          <div class="ai-modal-backdrop" id="xmlAiModalBackdrop"></div>
+
+          <div class="ai-modal-card">
+            <div class="ai-modal-header">
+              <div>
+                <h3 class="tool-subtitle">Explicación IA</h3>
+                <p class="ai-panel-text">Resumen funcional, estructura técnica y observaciones.</p>
+              </div>
+
+              <div class="ai-modal-actions">
+                <button id="btnExplainXml" class="primary-main">Analizar XML</button>
+                <button id="btnCloseXmlAiModal" class="secondary">Cerrar</button>
+              </div>
+            </div>
+
+            <pre class="output ai-output"><code id="xmlExplainOutput" class="language-plaintext"></code></pre>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+          <textarea id="xmlInput" placeholder="Pega aquí tu XML"></textarea>
+
+          <div class="file-loader">
+            <input id="xmlFileInput" type="file" accept=".xml,.txt" hidden />
+            <div id="xmlDropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra un archivo XML aquí</strong>
+                <p>o selecciónalo desde tu equipo</p>
+              </div>
+              <button type="button" id="btnPickXmlFile" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="xmlFileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetXml" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetXml" class="secondary">Guardar input</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acciones</h3>
+          <div class="actions actions-primary">
+            <button id="btnValidateXml">Validar XML</button>
+            <button id="btnFormatXml">Formatear XML</button>
+            <button id="btnXmlToJson">XML → JSON</button>
+            <button id="btnExtractXpaths">Extraer XPaths</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="xmlOutput" class="language-xml"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveXmlOutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyXmlOutput" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- JSON TOOLS -->
+      <section id="jsonTools" class="tool-section">
+        <h2>JSON Tools</h2>
+
+        <div class="tool-tip tip-json" id="toolTipJson">
+          <span class="tool-tip-icon">{ }</span>
+          <p id="inlineToolTipJson"></p>
+        </div>
+
+        <div class="ai-toolbar">
+          <div class="ai-toolbar-copy">
+            <span class="ai-badge">IA</span>
+            <span>Analiza este JSON con ayuda de IA</span>
+          </div>
+          <button id="btnToggleJsonAiModal" class="ai-toolbar-btn">Analizar JSON</button>
+        </div>
+
+        <div id="jsonAiModal" class="ai-modal hidden">
+          <div class="ai-modal-backdrop" id="jsonAiModalBackdrop"></div>
+
+          <div class="ai-modal-card">
+            <div class="ai-modal-header">
+              <div>
+                <h3 class="tool-subtitle">Explicación IA</h3>
+                <p class="ai-panel-text">Resumen funcional, estructura técnica y observaciones.</p>
+              </div>
+
+              <div class="ai-modal-actions">
+                <button id="btnExplainJson" class="primary-main">Analizar JSON</button>
+                <button id="btnCloseJsonAiModal" class="secondary">Cerrar</button>
+              </div>
+            </div>
+
+            <pre class="output ai-output"><code id="jsonExplainOutput" class="language-plaintext"></code></pre>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+          <textarea id="jsonInput" placeholder="Pega aquí tu JSON"></textarea>
+
+          <div class="file-loader">
+            <input id="jsonFileInput" type="file" accept=".json,.txt" hidden />
+            <div id="jsonDropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra un archivo JSON aquí</strong>
+                <p>o selecciónalo desde tu equipo</p>
+              </div>
+              <button type="button" id="btnPickJsonFile" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="jsonFileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetJson" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetJson" class="secondary">Guardar input</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acciones</h3>
+          <div class="actions actions-primary">
+            <button id="btnValidateJson">Validar JSON</button>
+            <button id="btnFormatJson">Formatear JSON</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="jsonOutput" class="language-json"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveJsonOutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyJsonOutput" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONVERTIDORES -->
+      <section id="convertersTools" class="tool-section">
+        <h2>Convertidores</h2>
+        <div class="tool-tip tip-converters" id="toolTipConverters">
+          <span class="tool-tip-icon">⇄</span>
+          <p id="inlineToolTipConverters"></p>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Configuración</h3>
+
+          <div class="converter-grid">
+            <div>
+              <label for="converterSource">Origen</label>
+              <select id="converterSource">
+                <option value="json">JSON</option>
+                <option value="xml">XML</option>
+                <option value="csv">CSV</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="converterTarget">Destino</label>
+              <select id="converterTarget">
+                <option value="xml">XML</option>
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="rootNameWrapper">
+            <label for="converterRootName">Root XML</label>
+            <input id="converterRootName" type="text" value="root" />
+          </div>
+
+          <div id="itemNameWrapper">
+            <label for="converterItemName">Item XML</label>
+            <input id="converterItemName" type="text" value="item" />
+          </div>
+
+          <div id="separatorWrapper">
+            <label for="converterSeparator">Separador CSV</label>
+            <input id="converterSeparator" type="text" value="," maxlength="1" />
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+          <textarea id="converterInput" placeholder="Pega aquí tu entrada"></textarea>
+
+          <div class="file-loader">
+            <input id="converterFileInput" type="file" accept=".xml,.json,.csv,.txt" hidden />
+            <div id="converterDropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra XML, JSON o CSV aquí</strong>
+                <p>detectaremos el tipo automáticamente</p>
+              </div>
+              <button type="button" id="btnPickConverterFile" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="converterFileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetConverter" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetConverter" class="secondary">Guardar input</button>
+            <button id="btnLoadJsonExample" class="secondary">Ejemplo JSON</button>
+            <button id="btnLoadXmlExample" class="secondary">Ejemplo XML</button>
+            <button id="btnLoadCsvExample" class="secondary">Ejemplo CSV</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acción</h3>
+          <div class="actions actions-primary">
+            <button id="btnConvertData" class="primary-main">Convertir</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="converterOutput" class="language-plaintext"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveConverterOutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyConverterOutput" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SNIPPETS -->
+      <section id="snippetsTools" class="tool-section">
+        <h2>Snippets</h2>
+        <div class="tool-tip tip-snippets" id="toolTipSnippets">
+          <span class="tool-tip-icon">[]</span>
+          <p id="inlineToolTipSnippets"></p>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Nuevo snippet</h3>
+
+          <div class="snippet-form-grid">
+            <div>
+              <label for="snippetName">Nombre</label>
+              <input id="snippetName" type="text" placeholder="Ej. XML prueba COUPA" />
+            </div>
+
+            <div>
+              <label for="snippetType">Tipo</label>
+              <select id="snippetType">
+                <option value="xml">XML</option>
+                <option value="json">JSON</option>
+                <option value="csv">CSV</option>
+                <option value="text">Texto</option>
+                <option value="base64">Base64</option>
+                <option value="other">Otro</option>
+              </select>
+            </div>
+          </div>
+
+          <textarea id="snippetContent" placeholder="Pega aquí el contenido del snippet"></textarea>
+
+          <div class="file-loader">
+            <input id="snippetFileInput" type="file" accept=".xml,.json,.csv,.txt,.b64,.base64" hidden />
+            <div id="snippetDropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra un archivo para crear snippet</strong>
+                <p>el tipo se sugerirá automáticamente</p>
+              </div>
+              <button type="button" id="btnPickSnippetFile" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="snippetFileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveSnippet">Guardar snippet</button>
+            <button id="btnClearSnippetForm" class="secondary">Limpiar</button>
+            <button id="btnDeleteAllSnippets" class="secondary danger">Eliminar todos</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Biblioteca</h3>
+          <div id="snippetsList" class="snippets-list"></div>
+        </div>
+      </section>
+
+      <!-- CONTADOR -->
+      <section id="textCounter" class="tool-section">
+        <h2>Contador de texto</h2>
+        <div class="tool-tip tip-counter" id="toolTipCounter">
+          <span class="tool-tip-icon">#</span>
+          <p id="inlineToolTipCounter"></p>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+          <textarea id="counterInput" placeholder="Pega aquí tu texto"></textarea>
+
+          <div class="file-loader">
+            <input id="counterFileInput" type="file" accept=".txt,.csv,.json,.xml" hidden />
+            <div id="counterDropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra un archivo de texto aquí</strong>
+                <p>se cargará directamente al contador</p>
+              </div>
+              <button type="button" id="btnPickCounterFile" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="counterFileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetCounter" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetCounter" class="secondary">Guardar input</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acción</h3>
+          <div class="actions actions-primary">
+            <button id="btnCountText">Contar caracteres</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="counterOutput" class="language-plaintext"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveCounterOutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyCounterOutput" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPARADOR -->
+      <section id="textDiff" class="tool-section">
+        <h2>Comparador de textos</h2>
+        <div class="tool-tip tip-diff" id="toolTipDiff">
+          <span class="tool-tip-icon">≠</span>
+          <p id="inlineToolTipDiff"></p>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+
+          <div class="diff-grid">
+            <div>
+              <label for="textA">Texto A</label>
+              <textarea id="textA" placeholder="Texto original"></textarea>
+
+              <div class="file-loader compact-loader">
+                <input id="textAFileInput" type="file" accept=".txt,.csv,.json,.xml" hidden />
+                <div id="textADropzone" class="file-dropzone compact-dropzone">
+                  <span class="file-dropzone-icon">A</span>
+                  <div>
+                    <strong>Cargar archivo en Texto A</strong>
+                  </div>
+                  <button type="button" id="btnPickTextAFile" class="secondary">Cargar archivo</button>
+                </div>
+                <div id="textAFileMeta" class="file-meta"></div>
+              </div>
+              <div class="counter" id="countA">Caracteres: 0 | Palabras: 0 | Líneas: 0</div>
+            </div>
+
+            <div>
+              <label for="textB">Texto B</label>
+              <textarea id="textB" placeholder="Texto nuevo"></textarea>
+
+              <div class="file-loader compact-loader">
+                <input id="textBFileInput" type="file" accept=".txt,.csv,.json,.xml" hidden />
+                <div id="textBDropzone" class="file-dropzone compact-dropzone">
+                  <span class="file-dropzone-icon">B</span>
+                  <div>
+                    <strong>Cargar archivo en Texto B</strong>
+                  </div>
+                  <button type="button" id="btnPickTextBFile" class="secondary">Cargar archivo</button>
+                </div>
+                <div id="textBFileMeta" class="file-meta"></div>
+              </div>
+              <div class="counter" id="countB">Caracteres: 0 | Palabras: 0 | Líneas: 0</div>
+            </div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetDiff" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetTextA" class="secondary">Guardar Texto A</button>
+            <button id="btnSaveSnippetTextB" class="secondary">Guardar Texto B</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acción</h3>
+          <div class="actions actions-primary">
+            <button id="btnCompareTexts">Comparar</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="diffOutput" class="language-diff"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveDiffOutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyDiffOutput" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- BASE64 -->
+      <section id="base64Tools" class="tool-section">
+        <h2>Base64</h2>
+        <div class="tool-tip tip-base64" id="toolTipBase64">
+          <span class="tool-tip-icon">64</span>
+          <p id="inlineToolTipBase64"></p>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Entrada</h3>
+          <textarea id="base64Input" placeholder="Texto o Base64"></textarea>
+
+          <div class="file-loader">
+            <input id="base64FileInput" type="file" accept=".txt,.b64,.base64" hidden />
+            <div id="base64Dropzone" class="file-dropzone">
+              <span class="file-dropzone-icon">⤴</span>
+              <div>
+                <strong>Arrastra un archivo de texto o Base64 aquí</strong>
+                <p>se cargará directo al área de trabajo</p>
+              </div>
+              <button type="button" id="btnPickBase64File" class="secondary">Cargar archivo</button>
+            </div>
+            <div id="base64FileMeta" class="file-meta"></div>
+          </div>
+
+          <div class="actions actions-secondary">
+            <button id="btnLoadSnippetBase64" class="secondary">Cargar snippet</button>
+            <button id="btnSaveSnippetBase64" class="secondary">Guardar input</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Acciones</h3>
+          <div class="actions actions-primary">
+            <button id="btnEncodeBase64">Encode</button>
+            <button id="btnDecodeBase64">Decode</button>
+          </div>
+        </div>
+
+        <div class="tool-block">
+          <h3 class="tool-subtitle">Resultado</h3>
+          <pre class="output"><code id="base64Output" class="language-plaintext"></code></pre>
+
+          <div class="actions actions-secondary">
+            <button id="btnSaveBase64OutputSnippet" class="secondary">Guardar resultado</button>
+            <button id="btnCopyBase64Output" class="secondary">Copiar salida</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="globalStatus" class="status"></div>
+    </main>
+  </div>
+
+  <!-- TOASTS -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- MODAL SNIPPET PICKER -->
+  <div id="snippetPickerModal" class="modal hidden">
+    <div class="modal-backdrop" id="snippetPickerBackdrop"></div>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Seleccionar snippet</h3>
+        <button id="btnCloseSnippetPicker" class="secondary">Cerrar</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="snippet-picker-filters">
+          <input id="snippetPickerSearch" type="text" placeholder="Buscar por nombre, tipo o contenido..." />
+
+          <select id="snippetPickerTypeFilter">
+            <option value="all">Todos</option>
+            <option value="xml">XML</option>
+            <option value="json">JSON</option>
+            <option value="csv">CSV</option>
+            <option value="text">Texto</option>
+            <option value="base64">Base64</option>
+            <option value="other">Otro</option>
+          </select>
+        </div>
+
+        <div id="snippetPickerList" class="snippet-picker-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GUARDAR SNIPPET -->
+  <div id="saveSnippetModal" class="modal hidden">
+    <div class="modal-backdrop" id="saveSnippetBackdrop"></div>
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Guardar snippet</h3>
+        <button id="btnCloseSaveSnippet" class="secondary">Cerrar</button>
+      </div>
+
+      <div class="modal-body">
+        <label>Nombre</label>
+        <input id="saveSnippetName" type="text" placeholder="Nombre del snippet" />
+
+        <label>Tipo</label>
+        <select id="saveSnippetType">
+          <option value="xml">XML</option>
+          <option value="json">JSON</option>
+          <option value="csv">CSV</option>
+          <option value="text">Texto</option>
+          <option value="base64">Base64</option>
+          <option value="other">Otro</option>
+        </select>
+
+        <div class="actions" style="margin-top: 16px;">
+          <button id="btnConfirmSaveSnippet">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
