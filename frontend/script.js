@@ -1,4 +1,4 @@
-const API = "http://localhost:3000";
+const API = "https://payloadlab-backend.onrender.com";
 const SNIPPETS_KEY = "payloadlab_snippets_v1";
 
 const toolButtons = document.querySelectorAll(".tool-btn");
