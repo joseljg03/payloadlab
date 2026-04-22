@@ -1,4 +1,12 @@
 const API = "https://payloadlab-backend.onrender.com";
+
+function trackEvent(name, params = {}) {
+  if (typeof gtag !== "undefined") {
+    gtag("event", name, params);
+  }
+}
+
+
 const SNIPPETS_KEY = "payloadlab_snippets_v1";
 
 const toolButtons = document.querySelectorAll(".tool-btn");
@@ -1061,6 +1069,8 @@ document.getElementById("btnFormatXml")?.addEventListener("click", async () => {
 document.getElementById("btnXmlToJson")?.addEventListener("click", async () => {
   const xml = document.getElementById("xmlInput").value.trim();
 
+
+
   if (!xml) {
     setStatus("Pega un XML primero");
     showToast("Pega un XML primero", "error");
@@ -1080,6 +1090,9 @@ document.getElementById("btnXmlToJson")?.addEventListener("click", async () => {
     }
 
     setOutput("xmlOutput", JSON.stringify(result.data, null, 2));
+
+    trackEvent("XML_TO_JSON");
+
     setStatus("Conversión completada");
     showToast("Conversión completada ✅", "success");
   } catch (error) {
@@ -1091,6 +1104,8 @@ document.getElementById("btnXmlToJson")?.addEventListener("click", async () => {
 
 document.getElementById("btnExplainXml")?.addEventListener("click", async () => {
   openXmlAiModal();
+
+  trackEvent("CLICK_ANALYZE_XML_IA");
 
   const btn = document.getElementById("btnExplainXml");
   const originalText = btn?.textContent || "Analizar XML";
@@ -1298,6 +1313,9 @@ document.getElementById("btnFormatJson")?.addEventListener("click", async () => 
 
     if (!response.ok) {
       setOutput("jsonOutput", JSON.stringify(result, null, 2));
+
+      trackEvent("JSON_FORMATTED");
+
       setStatus("Error al formatear JSON");
       showToast("Error al formatear JSON", "error");
       return;
@@ -1320,6 +1338,8 @@ document.getElementById("btnFormatJson")?.addEventListener("click", async () => 
 
 document.getElementById("btnExplainJson")?.addEventListener("click", async () => {
   openJsonAiModal();
+
+  trackEvent("CLICK_ANALYZE_JSON_IA");
 
   const btn = document.getElementById("btnExplainJson");
   const originalText = btn?.textContent || "Analizar JSON";
